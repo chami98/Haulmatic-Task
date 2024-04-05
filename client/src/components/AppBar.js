@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useState } from 'react';
 
 export default function AppBar() {
 
@@ -26,8 +25,7 @@ export default function AppBar() {
         }),
     }));
 
-    const [open, setOpen] = useState(false);
-
+    const open = false;
 
     return (
         <div>
