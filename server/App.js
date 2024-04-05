@@ -30,7 +30,7 @@ app.post('/signin', async (req, res) => {
 
         if (userSnapshot.empty) {
             // No user found with the provided username
-            return res.status(404).send('User not found');
+            return res.status(404).json({ error: 'User not found' });
         }
 
         // There should be only one document since username should be unique
@@ -41,14 +41,14 @@ app.post('/signin', async (req, res) => {
 
         if (passwordMatch) {
             // Passwords match, login successful
-            return res.send('Login successful');
+            return res.status(200).json({ message: 'Login successful' });
         } else {
             // Passwords don't match
-            return res.status(401).send('Incorrect password');
+            return res.status(401).json({ error: 'Incorrect password' });
         }
     } catch (error) {
         console.error('Error logging in:', error);
-        return res.status(500).send('Internal Server Error');
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
