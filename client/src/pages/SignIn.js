@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,13 +16,22 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-    const handleSubmit = (event) => {
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            username: data.get('username'),
-            password: data.get('password'),
-        });
+        const username = data.get('username');
+        const password = data.get('password');
+
+        try {
+            // Send POST request to the endpoint
+            const response = await axios.post('http://localhost:5000/signin', { username, password });
+            console.log(response.data);
+        } catch (error) {
+            // Handle error
+            console.log(error.response.data)
+        }
     };
 
     return (
