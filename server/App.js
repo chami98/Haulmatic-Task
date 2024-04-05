@@ -2,9 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const admin = require('firebase-admin');
-
+const cors = require('cors');
 const app = express();
 const port = 5000;
+
+app.use(cors());
 
 // Initialize Firebase Admin SDK
 const serviceAccount = require('./config/serviceAccountKey.json');
