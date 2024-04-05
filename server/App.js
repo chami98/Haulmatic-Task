@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const admin = require('firebase-admin');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 const app = express();
 const port = 5000;
 
@@ -40,8 +41,11 @@ app.post('/signin', async (req, res) => {
         const passwordMatch = await bcrypt.compare(password, userDoc.password);
 
         if (passwordMatch) {
-            // Passwords match, login successful
-            return res.status(200).json({ message: 'Login successful' });
+            // Passwords match, generate JWT token
+            const token = jwt.sign({ username: userDoc.username, userId: userDoc.userId }, 'haulmatic', { expiresIn: '1h' });
+
+            // Return token
+            return res.status(200).json({ token });
         } else {
             // Passwords don't match
             return res.status(401).json({ error: 'Incorrect password' });

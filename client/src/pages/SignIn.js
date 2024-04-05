@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,6 +18,7 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -27,11 +29,19 @@ export default function SignIn() {
         try {
             // Send POST request to the endpoint
             const response = await axios.post('http://localhost:5000/signin', { username, password });
-            console.log(response.data);
+            const token = response.data.token; // Get the token from response data
+            sessionStorage.setItem('token', token); // Store the token securely
+            // Redirect the user to another page upon successful login
+            navigate('/');
         } catch (error) {
             // Handle error
-            console.log(error.response.data)
+            setErrorMessage(error.response.data.message); // Display error message to the user
         }
+    };
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('token'); // Clear the stored token
+        navigate('/signin'); // Redirect the user to the login page
     };
 
     return (
@@ -93,6 +103,7 @@ export default function SignIn() {
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
                             />
+                            {errorMessage && <Typography color="error">{errorMessage}</Typography>}
                             <Button
                                 type="submit"
                                 fullWidth
@@ -100,6 +111,9 @@ export default function SignIn() {
                                 sx={{ mt: 3, mb: 2 }}
                             >
                                 Sign In
+                            </Button>
+                            <Button onClick={handleLogout} fullWidth variant="outlined" sx={{ mt: 2 }}>
+                                Logout
                             </Button>
                         </Box>
                     </Box>
