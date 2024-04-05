@@ -39,11 +39,6 @@ export default function SignIn() {
         }
     };
 
-    const handleLogout = () => {
-        sessionStorage.removeItem('token'); // Clear the stored token
-        navigate('/signin'); // Redirect the user to the login page
-    };
-
     return (
         <ThemeProvider theme={defaultTheme}>
             <Grid container component="main" sx={{ height: '100vh' }}>
@@ -111,9 +106,6 @@ export default function SignIn() {
                                 sx={{ mt: 3, mb: 2 }}
                             >
                                 Sign In
-                            </Button>
-                            <Button onClick={handleLogout} fullWidth variant="outlined" sx={{ mt: 2 }}>
-                                Logout
                             </Button>
                         </Box>
                     </Box>
