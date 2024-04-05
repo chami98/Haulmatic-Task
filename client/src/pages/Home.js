@@ -1,13 +1,12 @@
 import React from 'react'
+import UserManagementSection from '../components/UserManagementSection'
 import AppBar from '../components/AppBar'
-import CreateUserTile from '../components/CreateUserTile'
 
 export default function Home() {
     return (
         <>
             <AppBar />
-
-            <CreateUserTile />
+            <UserManagementSection />
         </>
     )
 }
