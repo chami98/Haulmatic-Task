@@ -110,6 +110,38 @@ app.get('/users', async (req, res) => {
     }
 });
 
+// PUT endpoint to edit user details
+app.put('/users/:userId', async (req, res) => {
+    // Retrieve userId from request parameters
+    const { userId } = req.params;
+
+    // Retrieve updated firstName and lastName from the request body
+    const { firstName, lastName } = req.body;
+
+    try {
+        // Check if the user exists
+        const userRef = db.collection('users').doc(userId);
+        const userDoc = await userRef.get();
+
+        if (!userDoc.exists) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Update the user details
+        await userRef.update({
+            firstName,
+            lastName
+        });
+
+        // Return success response
+        return res.status(200).json({ message: 'User details updated successfully' });
+    } catch (error) {
+        console.error('Error updating user details:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server is listening at http://localhost:${port}`);
