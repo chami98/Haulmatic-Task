@@ -31,7 +31,7 @@ The Back End part of the project is developed using Node.js, creating REST APIs 
 To run the Back End locally:
 
 1. Clone this repository.
-2. Navigate to the `server` directory.
+2. Navigate to the `server/local functions` directory.
 3. Run `npm install` to install dependencies.
 4. Run `npm start` to start the Node.js server.
 
