@@ -9,6 +9,9 @@ import { useTheme } from '@mui/material/styles';
 import AppBar from './AppBar';
 import CreateUserTile from './CreateUserTile';
 import ViewUsersTile from './ViewUsersTile';
+import FullScreenDialog from './FullScreenDialog';
+import { useState } from 'react';
+import CreateUser from './CreateUser';
 
 
 const defaultTheme = createTheme();
@@ -16,6 +19,16 @@ const defaultTheme = createTheme();
 export default function UserManagementSection() {
     const theme = useTheme();
     const isMediumScreen = useMediaQuery(theme.breakpoints.up('md'));
+
+    const [CreateUserDialogOpen, setCreateUserDialogOpen] = useState(false)
+
+    const handleCreateUserClickOpen = () => {
+        setCreateUserDialogOpen(true);
+    };
+
+    const handleCreateUserClose = () => {
+        setCreateUserDialogOpen(false);
+    };
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -40,7 +53,7 @@ export default function UserManagementSection() {
                         height: '100vh',
                     }}>
                         <Grid item xs={12} md={5} style={{ height: isMediumScreen ? '24vw' : '30vh' }}>
-                            <CreateUserTile />
+                            <CreateUserTile handleCreateUserClickOpen={handleCreateUserClickOpen} handleCreateUserClose={handleCreateUserClose} />
                         </Grid>
                         <Grid item xs={12} md={5} style={{ height: isMediumScreen ? '24vw' : '30vh' }}>
                             <ViewUsersTile />
@@ -48,6 +61,13 @@ export default function UserManagementSection() {
                     </Grid>
                 </Box>
             </Box>
+            <FullScreenDialog
+                dialogOpen={CreateUserDialogOpen}
+                handleClickOpen={handleCreateUserClickOpen}
+                handleClose={handleCreateUserClose}
+                title="Create User"
+                contentComponent={<CreateUser action="add" />}
+            />
         </ThemeProvider>
     )
 }

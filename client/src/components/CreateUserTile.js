@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AddIcon from '@mui/icons-material/Add';
 
-export default function CreateUserTile() {
+export default function CreateUserTile({ handleCreateUserClickOpen }) {
     const theme = useTheme();
     const isMediumScreen = useMediaQuery(theme.breakpoints.up('md'));
     return (
@@ -23,7 +23,7 @@ export default function CreateUserTile() {
                 height: '100%',
                 textAlign: 'center',
             }}
-
+            onClick={handleCreateUserClickOpen}
         >
             <AddIcon style={{ fill: 'white', width: isMediumScreen ? '110px' : '70px', height: isMediumScreen ? '110px' : '70px' }} />
             <span style={{ marginLeft: '10px', fontSize: isMediumScreen ? '35px' : '20px' }}>Create User</span>
