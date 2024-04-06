@@ -110,6 +110,27 @@ app.get('/users', async (req, res) => {
     }
 });
 
+// GET endpoint to fetch details of a single user
+app.get('/users/:userId', async (req, res) => {
+    // Retrieve userId from request parameters
+    const { userId } = req.params;
+
+    try {
+        // Query Firestore to fetch the user document by userId
+        const userDoc = await db.collection('users').doc(userId).get();
+
+        if (!userDoc.exists) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Return the user data
+        return res.status(200).json(userDoc.data());
+    } catch (error) {
+        console.error('Error fetching user details:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 // PUT endpoint to edit user details
 app.put('/users/:userId', async (req, res) => {
     // Retrieve userId from request parameters
@@ -172,3 +193,5 @@ app.delete('/users/:userId', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server is listening at http://localhost:${port}`);
 });
+
+module.exports = app;
