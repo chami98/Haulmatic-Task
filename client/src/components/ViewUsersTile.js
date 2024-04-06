@@ -4,7 +4,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import ViewListIcon from '@mui/icons-material/ViewList';
 
 
-export default function ViewUsersTile() {
+export default function ViewUsersTile({ handleViewUsersClickOpen }) {
     const theme = useTheme();
     const isMediumScreen = useMediaQuery(theme.breakpoints.up('md'));
     return (
@@ -24,7 +24,7 @@ export default function ViewUsersTile() {
                 height: '100%',
                 textAlign: 'center',
             }}
-
+            onClick={handleViewUsersClickOpen}
         >
             <ViewListIcon style={{ fill: 'white', width: isMediumScreen ? '110px' : '70px', height: isMediumScreen ? '110px' : '70px' }} />
             <span style={{ marginLeft: '10px', fontSize: isMediumScreen ? '35px' : '20px' }}>View Users</span>

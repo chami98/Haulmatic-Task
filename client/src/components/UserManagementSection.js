@@ -12,6 +12,7 @@ import ViewUsersTile from './ViewUsersTile';
 import FullScreenDialog from './FullScreenDialog';
 import { useState } from 'react';
 import CreateUser from './CreateUser';
+import UserTable from './UserTable';
 
 
 const defaultTheme = createTheme();
@@ -20,7 +21,8 @@ export default function UserManagementSection() {
     const theme = useTheme();
     const isMediumScreen = useMediaQuery(theme.breakpoints.up('md'));
 
-    const [CreateUserDialogOpen, setCreateUserDialogOpen] = useState(false)
+    const [createUserDialogOpen, setCreateUserDialogOpen] = useState(false)
+    const [viewUsersDialogOpen, setViewUsersDialogOpen] = useState(false)
 
     const handleCreateUserClickOpen = () => {
         setCreateUserDialogOpen(true);
@@ -28,6 +30,14 @@ export default function UserManagementSection() {
 
     const handleCreateUserClose = () => {
         setCreateUserDialogOpen(false);
+    };
+
+    const handleViewUsersClickOpen = () => {
+        setViewUsersDialogOpen(true);
+    };
+
+    const handleViewUsersClose = () => {
+        setViewUsersDialogOpen(false)
     };
 
     return (
@@ -56,17 +66,25 @@ export default function UserManagementSection() {
                             <CreateUserTile handleCreateUserClickOpen={handleCreateUserClickOpen} handleCreateUserClose={handleCreateUserClose} />
                         </Grid>
                         <Grid item xs={12} md={5} style={{ height: isMediumScreen ? '24vw' : '30vh' }}>
-                            <ViewUsersTile />
+                            <ViewUsersTile handleViewUsersClickOpen={handleViewUsersClickOpen} handleViewUsersClose={handleViewUsersClose} />
                         </Grid>
                     </Grid>
                 </Box>
             </Box>
             <FullScreenDialog
-                dialogOpen={CreateUserDialogOpen}
+                dialogOpen={createUserDialogOpen}
                 handleClickOpen={handleCreateUserClickOpen}
                 handleClose={handleCreateUserClose}
                 title="Create User"
                 contentComponent={<CreateUser action="add" />}
+            />
+
+            <FullScreenDialog
+                dialogOpen={viewUsersDialogOpen}
+                handleClickOpen={handleViewUsersClickOpen}
+                handleClose={handleViewUsersClose}
+                title="View Users"
+                contentComponent={<UserTable />}
             />
         </ThemeProvider>
     )
