@@ -67,6 +67,50 @@ app.get('/', (req, res) => {
     return res.status(200).json({ user: req.user })
 })
 
+// POST endpoint to create users
+app.post('/users', async (req, res) => {
+    // Retrieve firstName and lastName from the request body
+    const { firstName, lastName } = req.body;
+
+    try {
+        // Generate a unique user ID
+        const userId = db.collection('userDetails').doc().id;
+
+        // Create a new userDetails document
+        await db.collection('userDetails').doc(userId).set({
+            firstName,
+            lastName,
+            userId
+        });
+
+        // Return success response
+        return res.status(201).json({ message: 'User details created successfully', userId });
+    } catch (error) {
+        console.error('Error creating user details:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+app.get('/users', async (req, res) => {
+    try {
+        // Query Firestore to fetch all user documents
+        const usersSnapshot = await db.collection('userDetails').get();
+
+        // Extract user data from the snapshot
+        const userDetails = [];
+        usersSnapshot.forEach((doc) => {
+            userDetails.push(doc.data());
+        });
+
+        // Return the user data
+        return res.status(200).json({ userDetails });
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
 
 // Start the server
 app.listen(port, () => {

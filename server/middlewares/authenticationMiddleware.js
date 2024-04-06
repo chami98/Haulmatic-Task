@@ -4,7 +4,7 @@ const constants = require('../constants');
 
 const authenticate = (req, res, next) => {
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // 'jhjhjh kjkjnkjnk'
+    const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
         return res.status(401).json({ message: 'Unauthorized' });
