@@ -121,9 +121,16 @@ function UserTable({ }) {
     const handleDelete = (rowToDelete) => {
         const isConfirmed = window.confirm(`Are you sure you want to delete record of ${rowToDelete.firstName}?`);
         if (isConfirmed) {
-            axios.delete(`url${rowToDelete.id}`)
+
+            const token = sessionStorage.getItem(TOKEN_KEY)
+
+            const headers = {
+                Authorization: `Bearer ${token}`
+            };
+
+            axios.delete(`${BASE_URL}/users/${rowToDelete.userId}`, { headers })
                 .then(response => {
-                    const updatedRows = rows.filter(row => row.id !== rowToDelete.id);
+                    const updatedRows = rows.filter(row => row.userId !== rowToDelete.userId);
                     setRows(updatedRows);
                 })
                 .catch(error => {
