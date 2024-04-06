@@ -11,6 +11,9 @@ app.use(cors());
 
 // Initialize Firebase Admin SDK
 const serviceAccount = require('./config/serviceAccountKey.json');
+const authenticate = require('./middlewares/authenticationMiddleware');
+const constants = require('./constants');
+
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
@@ -42,10 +45,10 @@ app.post('/signin', async (req, res) => {
 
         if (passwordMatch) {
             // Passwords match, generate JWT token
-            const token = jwt.sign({ username: userDoc.username, userId: userDoc.userId }, 'haulmatic', { expiresIn: '1h' });
+            const token = jwt.sign({ username: userDoc.username, userId: userDoc.userId }, constants.JWT_SECRET, { expiresIn: '1h' });
 
             // Return token
-            return res.status(200).json({ token });
+            return res.status(200).json({ username, token });
         } else {
             // Passwords don't match
             return res.status(401).json({ error: 'Incorrect password' });
@@ -55,6 +58,15 @@ app.post('/signin', async (req, res) => {
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+app.use(authenticate)
+
+
+
+app.get('/', (req, res) => {
+    return res.status(200).json({ user: req.user })
+})
+
 
 // Start the server
 app.listen(port, () => {

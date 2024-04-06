@@ -5,8 +5,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { setAppAuthenticatedState } from '../redux/actions/appActions';
+
 
 export default function AppBar() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const AppBar = styled(MuiAppBar, {
         shouldForwardProp: (prop) => prop !== 'open',
@@ -27,6 +33,11 @@ export default function AppBar() {
 
     const open = false;
 
+    const handleLogout = () => {
+        dispatch(setAppAuthenticatedState(false))
+        navigate('/');
+    };
+
     return (
         <div>
             <AppBar position="absolute" open={open}>
@@ -44,7 +55,7 @@ export default function AppBar() {
                     >
                         User Management System
                     </Typography>
-                    <Button color="inherit">
+                    <Button color="inherit" onClick={() => handleLogout()}>
                         <LogoutIcon sx={{ mr: 1 }} /> Logout
                     </Button>
                 </Toolbar>

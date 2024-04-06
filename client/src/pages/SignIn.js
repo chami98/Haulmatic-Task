@@ -13,12 +13,17 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { TOKEN_KEY } from '../constants';
+import { useDispatch } from 'react-redux';
+import { setAppAuthenticatedState } from '../redux/actions/appActions';
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -30,18 +35,17 @@ export default function SignIn() {
             // Send POST request to the endpoint
             const response = await axios.post('http://localhost:5000/signin', { username, password });
             const token = response.data.token; // Get the token from response data
-            sessionStorage.setItem('token', token); // Store the token securely
+            sessionStorage.setItem(TOKEN_KEY, token); // Store the token securely
             // Redirect the user to another page upon successful login
             navigate('/');
+
+            dispatch(setAppAuthenticatedState(true))
+
+
         } catch (error) {
             // Handle error
             setErrorMessage(error.response.data.message); // Display error message to the user
         }
-    };
-
-    const handleLogout = () => {
-        sessionStorage.removeItem('token'); // Clear the stored token
-        navigate('/signin'); // Redirect the user to the login page
     };
 
     return (
@@ -111,9 +115,6 @@ export default function SignIn() {
                                 sx={{ mt: 3, mb: 2 }}
                             >
                                 Sign In
-                            </Button>
-                            <Button onClick={handleLogout} fullWidth variant="outlined" sx={{ mt: 2 }}>
-                                Logout
                             </Button>
                         </Box>
                     </Box>
