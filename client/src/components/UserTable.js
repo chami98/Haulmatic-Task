@@ -14,7 +14,7 @@ import FullScreenDialog from './FullScreenDialog';
 import CreateUser from './CreateUser';
 import axios from 'axios';
 import { Skeleton } from '@mui/material';
-import { TOKEN_KEY } from '../constants';
+import { BASE_URL, TOKEN_KEY } from '../constants';
 
 
 function Row(props) {
@@ -87,7 +87,7 @@ function UserTable({ }) {
     }
 
     useEffect(() => {
-        const url = `http://localhost:5000/users`;
+        const url = BASE_URL + `/users`;
 
         const token = sessionStorage.getItem(TOKEN_KEY)
         let config = {
@@ -121,9 +121,16 @@ function UserTable({ }) {
     const handleDelete = (rowToDelete) => {
         const isConfirmed = window.confirm(`Are you sure you want to delete record of ${rowToDelete.firstName}?`);
         if (isConfirmed) {
-            axios.delete(`url${rowToDelete.id}`)
+
+            const token = sessionStorage.getItem(TOKEN_KEY)
+
+            const headers = {
+                Authorization: `Bearer ${token}`
+            };
+
+            axios.delete(`${BASE_URL}/users/${rowToDelete.userId}`, { headers })
                 .then(response => {
-                    const updatedRows = rows.filter(row => row.id !== rowToDelete.id);
+                    const updatedRows = rows.filter(row => row.userId !== rowToDelete.userId);
                     setRows(updatedRows);
                 })
                 .catch(error => {

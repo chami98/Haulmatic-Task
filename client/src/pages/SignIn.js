@@ -13,7 +13,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { TOKEN_KEY } from '../constants';
+import { BASE_URL, TOKEN_KEY } from '../constants';
 import { useDispatch } from 'react-redux';
 import { setAppAuthenticatedState } from '../redux/actions/appActions';
 
@@ -33,7 +33,7 @@ export default function SignIn() {
 
         try {
             // Send POST request to the endpoint
-            const response = await axios.post('http://localhost:5000/signin', { username, password });
+            const response = await axios.post(BASE_URL + '/signin', { username, password });
             const token = response.data.token; // Get the token from response data
             sessionStorage.setItem(TOKEN_KEY, token); // Store the token securely
             // Redirect the user to another page upon successful login
@@ -103,11 +103,6 @@ export default function SignIn() {
                                 id="password"
                                 autoComplete="current-password"
                             />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            />
-                            {errorMessage && <Typography color="error">{errorMessage}</Typography>}
                             <Button
                                 type="submit"
                                 fullWidth

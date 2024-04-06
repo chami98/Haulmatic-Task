@@ -12,6 +12,7 @@ import {
 
 import Typography from "@mui/material/Typography";
 import axios from "axios";
+import { TOKEN_KEY } from "../constants";
 
 export default function CreateUser({
     userRecord,
@@ -53,13 +54,18 @@ export default function CreateUser({
         };
 
         const httpMethod = action === "edit" ? "put" : "post";
+        const token = sessionStorage.getItem(TOKEN_KEY)
+
+        const headers = {
+            Authorization: `Bearer ${token}`
+        };
 
         const url =
             action === "edit"
-                ? `url/${userRecord.id}`
-                : "url post";
+                ? `http://localhost:5000/users/${userRecord.userId}`
+                : "http://localhost:5000/users";
 
-        axios[httpMethod](url, formData)
+        axios[httpMethod](url, formData, { headers })
             .then((response) => {
                 if (httpMethod === "post") {
 
