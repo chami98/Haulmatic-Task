@@ -2,7 +2,6 @@
 
 The project is deployed and accessible at [https://haulmatic-task.web.app/](https://haulmatic-task.web.app/).
 
-
 ## Front End (React)
 
 The Front End part of the project is implemented using React.js with Redux for state management. It includes:
@@ -34,7 +33,7 @@ The Back End part of the project is developed using Node.js, creating REST APIs 
 To run the Back End locally:
 
 1. Clone this repository.
-2. Navigate to the `server/local functions` directory.
+2. Navigate to the `server/local_functions` directory.
 3. Run `npm install` to install dependencies.
 4. Run `npm start` to start the Node.js server.
 
@@ -42,7 +41,7 @@ To run the Back End locally:
 
 Unit tests for the back end functionality are implemented using Jest. To run the tests:
 
-1. Navigate to the `server/local functions/unit_tests` directory.
+1. Navigate to the `server/local_functions/unit_tests` directory.
 2. Run `npx jest` to execute the unit tests.
 
 ## Repository Structure
@@ -50,4 +49,9 @@ Unit tests for the back end functionality are implemented using Jest. To run the
 - `/client`: Contains the Front End code.
 - `/server`: Contains the Back End code.
 
+## Login Credentials
 
+For accessing the application, please use the following login credentials:
+
+- Username: haulmatic
+- Password: 123456
