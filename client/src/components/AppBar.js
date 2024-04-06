@@ -6,9 +6,14 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { setAppAuthenticatedState } from '../redux/actions/appActions';
+
 
 export default function AppBar() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const AppBar = styled(MuiAppBar, {
         shouldForwardProp: (prop) => prop !== 'open',
     })(({ theme, open }) => ({
@@ -29,8 +34,8 @@ export default function AppBar() {
     const open = false;
 
     const handleLogout = () => {
-        sessionStorage.removeItem('token'); // Clear the stored token
-        navigate('/signin'); // Redirect the user to the login page
+        dispatch(setAppAuthenticatedState(false))
+        navigate('/');
     };
 
     return (
