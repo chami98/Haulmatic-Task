@@ -48,7 +48,7 @@ app.post('/signin', async (req, res) => {
             const token = jwt.sign({ username: userDoc.username, userId: userDoc.userId }, constants.JWT_SECRET, { expiresIn: '1h' });
 
             // Return token
-            return res.status(200).json({ token });
+            return res.status(200).json({ username, token });
         } else {
             // Passwords don't match
             return res.status(401).json({ error: 'Incorrect password' });
