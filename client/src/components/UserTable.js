@@ -14,7 +14,7 @@ import FullScreenDialog from './FullScreenDialog';
 import CreateUser from './CreateUser';
 import axios from 'axios';
 import { Skeleton } from '@mui/material';
-import { TOKEN_KEY } from '../constants';
+import { BASE_URL, TOKEN_KEY } from '../constants';
 
 
 function Row(props) {
@@ -87,7 +87,7 @@ function UserTable({ }) {
     }
 
     useEffect(() => {
-        const url = `http://localhost:5000/users`;
+        const url = BASE_URL + `/users`;
 
         const token = sessionStorage.getItem(TOKEN_KEY)
         let config = {

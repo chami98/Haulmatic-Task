@@ -6,7 +6,7 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import { TOKEN_KEY } from '../constants';
+import { BASE_URL, TOKEN_KEY } from '../constants';
 import axios from 'axios';
 
 export default function Initialize() {
@@ -23,7 +23,7 @@ export default function Initialize() {
             dispatch(setAppInitializedState(true))
         } else {
 
-            const url = `http://localhost:5000/`;
+            const url = BASE_URL + '/';
 
             let config = {
                 headers: {
