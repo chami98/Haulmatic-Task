@@ -10,8 +10,6 @@ const appReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case SET_APP_INITIALIZED_STATE:
-
-            console.log('inside app redcer payload', action)
             return {
                 ...state,
                 isInitialized: action.payload

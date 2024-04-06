@@ -14,114 +14,66 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 
 export default function CreateUser({
-    clearenceRecord,
+    userRecord,
     action,
     handleUpdatedCount,
     place,
 }) {
-    const [intake, setIntake] = useState(
-        action == "edit" ? clearenceRecord.intake : ""
-    );
+
     const [firstName, setFirstname] = useState(
-        action == "edit" ? clearenceRecord.firstName : ""
-    );
-    const [registrationNumber, setRegistrationNumber] = useState(
-        action == "edit" ? clearenceRecord.registrationNumber : ""
-    );
-    const [degree, setDegree] = useState(
-        action == "edit" ? clearenceRecord.degree : ""
-    );
-    const [lastName, setLastName] = useState(
-        action == "edit" ? clearenceRecord.clearenceDetails[0].name : ""
-    );
-    const [itemValue, setItemValue] = useState(
-        action == "edit" ? clearenceRecord.clearenceDetails[0].value : ""
-    );
-    const [itemDescription, setItemDescription] = useState(
-        action == "edit" ? clearenceRecord.clearenceDetails[0].description : ""
+        action == "edit" ? userRecord.firstName : ""
     );
 
-    const handleIntakeChange = (event) => {
-        setIntake(event.target.value);
-    };
+    const [lastName, setLastName] = useState(
+        action == "edit" ? userRecord.lastName : ""
+    );
 
     const handleFirstNameChange = (event) => {
         setFirstname(event.target.value);
-    };
-
-    const handleDegreeChange = (event) => {
-        setDegree(event.target.value);
-    };
-
-    const handleRegistrationNumberChange = (event) => {
-        setRegistrationNumber(event.target.value);
     };
 
     const handleLastNameChange = (event) => {
         setLastName(event.target.value);
     };
 
-    const handleItemValueChange = (event) => {
-        setItemValue(event.target.value);
-    };
-    const handleItemDescriptionChange = (event) => {
-        setItemDescription(event.target.value);
-    };
-
     const handleSubmit = () => {
         if (
-            !intake ||
+
             !firstName ||
-            !registrationNumber ||
-            !degree ||
-            !lastName ||
-            !itemValue ||
-            !itemDescription
+            !lastName
+
         ) {
 
             return;
         }
         const formData = {
-            intake,
             firstName,
-            registrationNumber,
-            degree,
-            clearenceDetails: [
-                {
+            lastName,
 
-                    name: lastName,
-                    value: itemValue,
-                    description: itemDescription,
-                    place,
-                },
-            ],
         };
 
         const httpMethod = action === "edit" ? "put" : "post";
 
         const url =
             action === "edit"
-                ? `https://us-central1-clear-flow-9e0f0.cloudfunctions.net/ClearFlow/data/${clearenceRecord.id}`
-                : "https://us-central1-clear-flow-9e0f0.cloudfunctions.net/ClearFlow/data";
+                ? `url/${userRecord.id}`
+                : "url post";
 
         axios[httpMethod](url, formData)
             .then((response) => {
                 if (httpMethod === "post") {
 
                 } else {
-
                     handleUpdatedCount();
                 }
             })
             .catch((error) => {
-
                 console.error("Error sending data", error);
             });
     };
 
     return (
         <>
-            {" "}
             <Box sx={{ paddingTop: "20px", paddingLeft: "20px" }}>
                 <Typography variant="h6" component="h6">
                     User Details

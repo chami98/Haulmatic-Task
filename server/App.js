@@ -74,10 +74,10 @@ app.post('/users', async (req, res) => {
 
     try {
         // Generate a unique user ID
-        const userId = db.collection('userDetails').doc().id;
+        const userId = db.collection('users').doc().id;
 
-        // Create a new userDetails document
-        await db.collection('userDetails').doc(userId).set({
+        // Create a new users document
+        await db.collection('users').doc(userId).set({
             firstName,
             lastName,
             userId
@@ -94,16 +94,16 @@ app.post('/users', async (req, res) => {
 app.get('/users', async (req, res) => {
     try {
         // Query Firestore to fetch all user documents
-        const usersSnapshot = await db.collection('userDetails').get();
+        const usersSnapshot = await db.collection('users').get();
 
         // Extract user data from the snapshot
-        const userDetails = [];
+        const users = [];
         usersSnapshot.forEach((doc) => {
-            userDetails.push(doc.data());
+            users.push(doc.data());
         });
 
         // Return the user data
-        return res.status(200).json({ userDetails });
+        return res.status(200).json(users);
     } catch (error) {
         console.error('Error fetching users:', error);
         return res.status(500).json({ error: 'Internal Server Error' });
