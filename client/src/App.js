@@ -11,9 +11,7 @@ import { useSelector } from 'react-redux';
 function App() {
 
   const { isInitialized } = useSelector(state => state.app)
-  console.log(isInitialized)
   const { isAuthenticated } = useSelector(state => state.app)
-
 
 
   let routes = null;
