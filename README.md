@@ -1,5 +1,8 @@
 # ASE Coding Project
 
+The project is deployed and accessible at [https://haulmatic-task.web.app/](https://haulmatic-task.web.app/).
+
+
 ## Front End (React)
 
 The Front End part of the project is implemented using React.js with Redux for state management. It includes:
@@ -35,8 +38,16 @@ To run the Back End locally:
 3. Run `npm install` to install dependencies.
 4. Run `npm start` to start the Node.js server.
 
+## Unit Tests
+
+Unit tests for the back end functionality are implemented using Jest. To run the tests:
+
+1. Navigate to the `server/local functions/unit_tests` directory.
+2. Run `npx jest` to execute the unit tests.
+
 ## Repository Structure
 
 - `/client`: Contains the Front End code.
 - `/server`: Contains the Back End code.
+
 
