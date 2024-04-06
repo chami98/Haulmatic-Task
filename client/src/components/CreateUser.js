@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import {
     TextField,
-    MenuItem,
-    FormControl,
-    InputLabel,
-    Select,
     Grid,
     Box,
     Button,
@@ -18,7 +14,6 @@ export default function CreateUser({
     userRecord,
     action,
     handleUpdatedCount,
-    place,
 }) {
 
     const [firstName, setFirstname] = useState(
