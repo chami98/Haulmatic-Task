@@ -141,6 +141,32 @@ app.put('/users/:userId', async (req, res) => {
     }
 });
 
+// DELETE endpoint to delete a user
+app.delete('/users/:userId', async (req, res) => {
+    // Retrieve userId from request parameters
+    const { userId } = req.params;
+
+    try {
+        // Check if the user exists
+        const userRef = db.collection('users').doc(userId);
+        const userDoc = await userRef.get();
+
+        if (!userDoc.exists) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Delete the user document
+        await userRef.delete();
+
+        // Return success response
+        return res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
 
 // Start the server
 app.listen(port, () => {
