@@ -46,8 +46,8 @@ Unit tests for the back end functionality are implemented using Jest. To run the
 
 ## Repository Structure
 
-- `/client`: Contains the Front End code.
-- `/server`: Contains the Back End code.
+- `/client`: Contains the Front-End code.
+- `/server`: Contains the Back-End code.
 
 ## Login Credentials
 
