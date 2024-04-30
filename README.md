@@ -1,4 +1,4 @@
-# ASE Coding Project
+# Coding Project
 
 The project is deployed and accessible at [https://haulmatic-task.web.app/](https://haulmatic-task.web.app/).
 
