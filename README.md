@@ -1,6 +1,6 @@
 # Coding Project
 
-The project is deployed and accessible at [https://haulmatic-task.web.app/](https://haulmatic-task.web.app/).
+The project is deployed and accessible at [https://haulmatic-task.web.app/](https://haulmatic-task.web.app/)
 
 ## Front End (React)
 
