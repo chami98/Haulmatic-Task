@@ -13,7 +13,7 @@ The Front End part of the project is implemented using React.js with Redux for s
 
 ### Getting Started
 
-To run the Front End locally:
+To run the Front End locally
 
 1. Clone this repository.
 2. Navigate to the `client` directory.
