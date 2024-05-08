@@ -4,7 +4,7 @@ The project is deployed and accessible at [https://haulmatic-task.web.app/](http
 
 ## Front End (React)
 
-The Front End part of the project is implemented using React.js with Redux for state management. It includes:
+The Front End part of the project is implemented using React.js with Redux for state management. It includes
 
 - Login page and Home page with React Router for navigation
 - User authentication with Redux
